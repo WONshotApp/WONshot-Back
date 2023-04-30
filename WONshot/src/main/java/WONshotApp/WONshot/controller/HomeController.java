@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -12,6 +14,7 @@ public class HomeController {
     @GetMapping("home")
     @ResponseBody
     public String home() {
-        return "hello";
+        String code = UUID.randomUUID().toString();
+        return code;
     }
 }
