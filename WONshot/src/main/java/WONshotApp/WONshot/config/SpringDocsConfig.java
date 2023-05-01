@@ -19,7 +19,7 @@ public class SpringDocsConfig {
     public OpenAPI openAPI(@Value("${springdoc.version}") String version) {
 
         Info info = new Info()
-                .title("Example API 문서") // 타이틀
+                .title("Wonshot 가계부") // 타이틀
                 .version(version) // 문서 버전
                 .description("잘못된 부분이나 오류 발생 시 바로 말씀해주세요.") // 문서 설명
                 .contact(new Contact() // 연락처
