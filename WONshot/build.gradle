@@ -11,7 +11,6 @@ sourceCompatibility = '17'
 repositories {
 	mavenCentral()
 }
-
 dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
@@ -19,13 +18,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
 	//mysql 연동
 	implementation 'mysql:mysql-connector-java:8.0.32'
 
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// 회원가입 로직 관련
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
