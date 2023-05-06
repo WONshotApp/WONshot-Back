@@ -1,5 +1,5 @@
 CREATE TABLE user (
-	uuid VARCHAR(20) NOT NULL,
+	uuid VARCHAR(100) NOT NULL,
     id VARCHAR(30) NOT NULL,
     password VARCHAR(100) NOT NULL,
     name VARCHAR(30) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE user (
 
 CREATE TABLE monthly (
     idx INT NOT NULL AUTO_INCREMENT,
-	uuid VARCHAR(20) NOT NULL,
+	uuid VARCHAR(100) NOT NULL,
     date_group VARCHAR(30) NOT NULL,
     total_expense INT NOT NULL,
     total_income INT NOT NULL,
