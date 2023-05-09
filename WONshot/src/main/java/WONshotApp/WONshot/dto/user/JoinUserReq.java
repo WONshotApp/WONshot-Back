@@ -1,6 +1,5 @@
 package WONshotApp.WONshot.dto.user;
 
-import WONshotApp.WONshot.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDto {
+public class JoinUserReq {
     private String id;
     private String password;
     private String name;
