@@ -1,6 +1,11 @@
 package WONshotApp.WONshot.service;
 
+import WONshotApp.WONshot.config.BaseException;
+import WONshotApp.WONshot.config.BaseExceptionStatus;
+import WONshotApp.WONshot.config.BaseResponse;
 import WONshotApp.WONshot.domain.User;
+import WONshotApp.WONshot.dto.user.CheckIdReq;
+import WONshotApp.WONshot.dto.user.CheckIdRes;
 import WONshotApp.WONshot.dto.user.JoinUserReq;
 import WONshotApp.WONshot.dto.user.JoinUserRes;
 import WONshotApp.WONshot.repository.UserRepository;
@@ -10,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -20,13 +24,16 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @Transactional
-    public JoinUserRes joinUser(JoinUserReq joinUserReq) {
+    public CheckIdRes checkId(CheckIdReq checkIdReq) {
+        return new CheckIdRes(!userRepository.existsUserById(checkIdReq.getId()));
+    }
 
-//        // email에 값이 존재하는지, 빈 값으로 요청하지는 않았는지 검사합니다. 빈값으로 요청했다면 에러 메시지를 보냅니다.
-//        if (postUserReq.getEmail().length() == 0) {
-//            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
-//        }
+    public JoinUserRes joinUser(JoinUserReq joinUserReq) throws BaseException {
+
+        // email에 값이 존재하는지, 빈 값으로 요청하지는 않았는지 검사합니다. 빈값으로 요청했다면 에러 메시지를 보냅니다.
+        if (joinUserReq.getEmail().length() == 0) {
+            throw new BaseException(BaseExceptionStatus.EMPTY_EMAIL);
+        }
 //        //이메일 정규표현: 입력받은 이메일이 email@domain.xxx와 같은 형식인지 검사합니다. 형식이 올바르지 않다면 에러 메시지를 보냅니다.
 //        if (!isRegexEmail(postUserReq.getUserEmail())) {
 //            return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
