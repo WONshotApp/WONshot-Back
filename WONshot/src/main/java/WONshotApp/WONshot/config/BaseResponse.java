@@ -25,7 +25,7 @@ public class BaseResponse<T> {
     }
 
     // 요청에 실패한 경우
-    public BaseResponse(BaseResponseStatus status) {
+    public BaseResponse(BaseExceptionStatus status) {
         this.code = status.getCode();
         this.httpStatus = status.getHttpStatus();
         this.message = status.getMessage();
