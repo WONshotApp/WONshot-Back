@@ -9,17 +9,17 @@ import WONshotApp.WONshot.dto.user.JoinUserRes;
 import WONshotApp.WONshot.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j // logger
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
     private final UserService userService;
 
     @PostMapping("check-id")
@@ -31,16 +31,9 @@ public class UserController {
 
     @PostMapping("register")
     @ResponseBody
-    public BaseResponse<JoinUserRes> joinUser(JoinUserReq joinUserReq) {
-        try{
-            JoinUserRes joinUserRes = userService.joinUser(joinUserReq);
-            return new BaseResponse<>(joinUserRes);
-        }
-        catch (BaseException e){
-            log.error(e.getException().getMessage());
-            return new BaseResponse<>(e.getException());
-        }
-
+    public BaseResponse<JoinUserRes> joinUser(JoinUserReq joinUserReq) throws BaseException {
+        JoinUserRes joinUserRes = userService.joinUser(joinUserReq);
+        return new BaseResponse<>(joinUserRes);
     }
 
 }
