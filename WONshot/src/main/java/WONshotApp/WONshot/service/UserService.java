@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+import static WONshotApp.WONshot.utils.ValidationRegex.isRegexEmail;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -34,14 +36,10 @@ public class UserService implements UserDetailsService {
         if (joinUserReq.getEmail().length() == 0) {
             throw new BaseException(BaseExceptionStatus.EMPTY_EMAIL);
         }
-//        //이메일 정규표현: 입력받은 이메일이 email@domain.xxx와 같은 형식인지 검사합니다. 형식이 올바르지 않다면 에러 메시지를 보냅니다.
-//        if (!isRegexEmail(postUserReq.getUserEmail())) {
-//            return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
-//        }
-//        // id에 값이 존재하는지, 빈 값으로 요청하지는 않았는지 검사합니다. 빈값으로 요청했다면 에러 메시지를 보냅니다.
-//        if (postUserReq.getUserId().length() == 0) {
-//            return new BaseResponse<>(POST_USERS_EMPTY_ID);
-//        }
+        //이메일 정규표현: 입력받은 이메일이 email@domain.xxx와 같은 형식인지 검사합니다. 형식이 올바르지 않다면 에러 메시지를 보냅니다.
+        if (!isRegexEmail(joinUserReq.getEmail())) {
+            throw new BaseException(BaseExceptionStatus.INVALID_EMAIL);
+        }
 //        //id 정규표현: 입력받은 id가 영문 대소문자,숫자 4-16자리 형식인지 검사합니다. 형식이 올바르지 않다면 에러 메시지를 보냅니다.
 //        if (!isRegexId(postUserReq.getUserId())) {
 //            return new BaseResponse<>(POST_USERS_INVALID_ID);
