@@ -25,6 +25,9 @@ public class User extends BaseEntity implements UserDetails {
     private String name;
     private String email;
 
+    public String getId() {
+        return this.id;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority("user"));

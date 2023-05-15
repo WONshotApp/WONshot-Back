@@ -16,6 +16,7 @@ public enum BaseExceptionStatus {
     INVALID_ID(1006, HttpStatus.BAD_REQUEST , "아이디 형식이 올바르지 않습니다."),
     EMPTY_PASSWORD(1007, HttpStatus.BAD_REQUEST, "비밀번호 값이 비어있습니다."),
     INVALID_PASSWORD(1008, HttpStatus.BAD_REQUEST , "비밀번호 형식이 올바르지 않습니다."),
+    NOT_FOUND_EMAIL(1009, HttpStatus.BAD_REQUEST , "가입된 이메일을 찾을 수 없습니다."),
     ;
 
 

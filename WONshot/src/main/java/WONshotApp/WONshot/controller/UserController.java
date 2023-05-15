@@ -2,10 +2,7 @@ package WONshotApp.WONshot.controller;
 
 import WONshotApp.WONshot.config.BaseException;
 import WONshotApp.WONshot.config.BaseResponse;
-import WONshotApp.WONshot.dto.user.CheckIdReq;
-import WONshotApp.WONshot.dto.user.CheckIdRes;
-import WONshotApp.WONshot.dto.user.JoinUserReq;
-import WONshotApp.WONshot.dto.user.JoinUserRes;
+import WONshotApp.WONshot.dto.user.*;
 import WONshotApp.WONshot.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +31,13 @@ public class UserController {
     public BaseResponse<JoinUserRes> joinUser(JoinUserReq joinUserReq) throws BaseException {
         JoinUserRes joinUserRes = userService.joinUser(joinUserReq);
         return new BaseResponse<>(joinUserRes);
+    }
+
+    @PostMapping("find-id")
+    @ResponseBody
+    public BaseResponse<FindIdRes> findId(FindIdReq findIdReq) throws BaseException {
+        FindIdRes findIdRes = userService.findId(findIdReq);
+        return new BaseResponse<>(findIdRes);
     }
 
 }
