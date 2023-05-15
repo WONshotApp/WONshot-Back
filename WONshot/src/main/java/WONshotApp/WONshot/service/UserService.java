@@ -2,12 +2,8 @@ package WONshotApp.WONshot.service;
 
 import WONshotApp.WONshot.config.BaseException;
 import WONshotApp.WONshot.config.BaseExceptionStatus;
-import WONshotApp.WONshot.config.BaseResponse;
 import WONshotApp.WONshot.domain.User;
-import WONshotApp.WONshot.dto.user.CheckIdReq;
-import WONshotApp.WONshot.dto.user.CheckIdRes;
-import WONshotApp.WONshot.dto.user.JoinUserReq;
-import WONshotApp.WONshot.dto.user.JoinUserRes;
+import WONshotApp.WONshot.dto.user.*;
 import WONshotApp.WONshot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 import static WONshotApp.WONshot.config.BaseExceptionStatus.INVALID_PASSWORD;
@@ -25,6 +22,11 @@ import static WONshotApp.WONshot.utils.ValidationRegex.*;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public CheckIdRes checkId(CheckIdReq checkIdReq) {
@@ -32,7 +34,6 @@ public class UserService implements UserDetailsService {
     }
 
     public JoinUserRes joinUser(JoinUserReq joinUserReq) throws BaseException {
-
         // email에 값이 존재하는지, 빈 값으로 요청하지는 않았는지 검사합니다. 빈값으로 요청했다면 에러 메시지를 보냅니다.
         if (joinUserReq.getEmail().length() == 0) {
             throw new BaseException(BaseExceptionStatus.EMPTY_EMAIL);
@@ -74,8 +75,12 @@ public class UserService implements UserDetailsService {
         return new JoinUserRes(uuid, joinUserReq.getId());
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+    public FindIdRes findId(FindIdReq findIdReq) throws BaseException {
+        List<User> user_list = userRepository.findByEmail(findIdReq.getEmail());
+        if (user_list.size() == 0){
+            throw new BaseException(BaseExceptionStatus.NOT_FOUND_EMAIL);
+        }
+        return new FindIdRes(user_list.get(0).getId());
     }
+
 }
