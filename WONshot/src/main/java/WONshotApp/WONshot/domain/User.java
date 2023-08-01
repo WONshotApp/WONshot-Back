@@ -1,5 +1,6 @@
 package WONshotApp.WONshot.domain;
 
+import io.jsonwebtoken.Jwts;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
