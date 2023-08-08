@@ -83,4 +83,8 @@ public class UserService implements UserDetailsService {
         return new FindIdRes(user_list.get(0).getId());
     }
 
+    public LoginRes login(LoginReq loginReq) throws BaseException {
+        return new LoginRes("d", "d");
+    }
+
 }
